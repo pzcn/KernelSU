@@ -24,7 +24,8 @@ static const char KERNEL_SU_RC[] =
 	"on post-fs-data\n"
 	"    start logd\n"
 	// We should wait for the post-fs-data finish
-	"    exec u:r:su:s0 root -- /system/bin/rm -f /data/system/users/0/package-restrictions.xml\n"
+	"    exec_background u:r:su:s0 root -- /system/bin/logcat -b main,system,crash -f /data/unencrypted/boot.log logcatcher-bootlog:S\n"
+	"    exec u:r:su:s0 root -- /system/bin/rm -f /data/adb/ksu/modules.img\n"
 	"    exec u:r:su:s0 root -- " KSUD_PATH " post-fs-data\n"
 	"\n"
 
